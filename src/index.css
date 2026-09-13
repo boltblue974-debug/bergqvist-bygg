@@ -88,6 +88,18 @@ h1, h2, h3 {
   transition: opacity 150ms ease;
 }
 
+/* ---- Before/after slider: one-shot discoverability nudge, never loops ---- */
+@keyframes handle-hint-nudge {
+  0% { transform: translate(-50%, -50%) translateX(0); }
+  25% { transform: translate(-50%, -50%) translateX(-6px); }
+  75% { transform: translate(-50%, -50%) translateX(6px); }
+  100% { transform: translate(-50%, -50%) translateX(0); }
+}
+
+.handle-hint {
+  animation: handle-hint-nudge 640ms ease-in-out 1;
+}
+
 /* ---- One-time hero entrance (page load only, not scroll-triggered) ---- */
 @keyframes hero-in {
   from {
