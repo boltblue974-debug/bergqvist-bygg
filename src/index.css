@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+
+  --color-paper: #f2eee3;
+  --color-paper-dim: #e7e1d0;
+  --color-ink: #221e19;
+  --color-ink-soft: #58513f;
+  --color-line: #d9d0b8;
+  --color-anthracite: #211d18;
+  --color-anthracite-2: #2c2822;
+  --color-brick: #b3402a;
+  --color-brick-dark: #93321f;
+  --color-copper: #c98a3d;
+}
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+  letter-spacing: -0.01em;
+}
+
+.hero-heading {
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: var(--color-brick);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brick);
+  outline-offset: 3px;
+}
+
+/* ---- Header scroll elevation: border/shadow appear only once content is behind it ---- */
+.header-shell {
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 1px 0 0 transparent;
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.header-shell[data-elevated="true"] {
+  border-bottom-color: color-mix(in srgb, var(--color-line) 70%, transparent);
+  box-shadow: 0 8px 20px -16px rgb(0 0 0 / 0.4);
+}
+
+/* ---- Form field focus ring: feedback on the user's own action ---- */
+.field {
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.field:focus {
+  border-color: var(--color-brick);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brick) 16%, transparent);
+}
+
+/* ---- Submit button label crossfade (prevents the label teleporting) ---- */
+.label-swap {
+  display: grid;
+}
+
+.label-swap > span {
+  grid-area: 1 / 1;
+  transition: opacity 150ms ease;
+}
+
+/* ---- One-time hero entrance (page load only, not scroll-triggered) ---- */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-in {
+  opacity: 0;
+  animation: hero-in 620ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
